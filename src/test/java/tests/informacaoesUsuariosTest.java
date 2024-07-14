@@ -6,6 +6,7 @@ import Suporte.Generator;
 import Suporte.Screenshoot;
 import org.junit.*;
 import org.junit.rules.TestName;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class informacaoesUsuariosTest {
     private WebDriver Navegador;
 
@@ -44,8 +46,9 @@ public class informacaoesUsuariosTest {
         Navegador.findElement(By.cssSelector("form > button")).click();
 
     }
-    @Ignore
-    public void VerificarLogin() {
+
+    @Test
+    public void test1VerificarLogin() {
 
         WebElement me = Navegador.findElement(By.cssSelector("#remove-main-padding_index > div > div > section > h2"));
         String textoNoElemento = me.getText();
@@ -53,8 +56,8 @@ public class informacaoesUsuariosTest {
 
     }
 
-    @Ignore
-    public void entrarnaHome() {
+    @Test
+    public void test2entrarnaHome() {
         Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[1]/div/div")).click();
 
         WebElement me = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[3]/div"));
@@ -63,8 +66,8 @@ public class informacaoesUsuariosTest {
 
     }
 
-    @Ignore
-    public void PesquisarFilme() {
+    @Test
+    public void test3PesquisarFilme() {
 
         Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[1]/div/div")).click();
 
@@ -81,8 +84,8 @@ public class informacaoesUsuariosTest {
 
     }
 
-    @Ignore
-    public void CriarUsuario(){
+    @Test
+    public void test4CriarUsuario(){
         Navegador.findElement(By.cssSelector("ul > label")).click();
 
         Navegador.findElement(By.id("password")).sendKeys("Dougl@s020498");
@@ -111,7 +114,7 @@ public class informacaoesUsuariosTest {
     }
 
 
-    @Test public void verificarKidsMode(){
+    @Test public void test5verificarKidsMode(){
 
 
 
@@ -209,6 +212,6 @@ public class informacaoesUsuariosTest {
 
     @After
     public void TearDown() throws Exception {
-       // Navegador.quit();
+       Navegador.quit();
     }
 }
