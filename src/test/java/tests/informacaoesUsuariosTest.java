@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Duration;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.Keys;
 
 
 import java.util.concurrent.TimeUnit;
@@ -76,11 +77,11 @@ public class informacaoesUsuariosTest {
 
         Navegador.findElement(By.cssSelector("#explore-ui-main-content-container > div._1r8f3tq5.xgfbc13ua.xgfbc13ia.xgfbc15o > input")).sendKeys("Roger Rabbit");
 
-        WebElement me = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[2]/div/div/section/div/div/a/div[2]/div[1]"));
+        WebElement movieTitle = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[2]/div/div/section/div/div/a/div[2]/div[1]"));
+        String textMovie = movieTitle.getText();
+        Assert.assertEquals("Uma Cilada para Roger Rabbit",textMovie);
 
         Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + ".png");
-
-
 
     }
 
@@ -137,8 +138,6 @@ public class informacaoesUsuariosTest {
         Assert.assertEquals("Nenhum resultado encontrado para \"Roger Rabbit\"",textoNoElemento);
 
 
-
-
         Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + "adultMovie.png");
 
         //Pesquisa Kids
@@ -156,58 +155,75 @@ public class informacaoesUsuariosTest {
     }
 
 
-    @Ignore public void editarUsuario(){
+    @Test public void test6editarUsuario(){
+
+        WebDriverWait wait = new WebDriverWait(Navegador,10);
+
+
         //Clicar em Editar Perfil
-
+        Navegador.findElement(By.cssSelector("nav > button")).click();
         // Clicar no Perfil
-
+        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/section/ul/div[3]")).click();
         //Mudar nome para Profile
-
-        //Mudar para modo Adulto
-
+        WebElement elementEditProfile = Navegador.findElement(By.xpath("//*[@id=\"editProfile\"]"));
+        wait.until(ExpectedConditions.visibilityOf(elementEditProfile));
+        elementEditProfile.sendKeys(Keys.CONTROL + "a");
+        elementEditProfile.sendKeys("Profile");
+        //Mudar para modo Adulto div:nth-child(3) >
+        Navegador.findElement(By.cssSelector("div:nth-child(3) > div:nth-child(2) > label")).click();
         //Colocar Senha
-
-        //Clicar em Salvar
+        Navegador.findElement(By.id("password")).sendKeys("Dougl@s020498");
+        //Clicar em Salvar #remove-main-padding_index > div > nav > button
+        Navegador.findElement(By.id("password-continue-login")).click();
 
         //Clicar em Pronto
+
+        elementEditProfile = Navegador.findElement(By.cssSelector("#remove-main-padding_index > div > nav > button"));
+        wait.until(ExpectedConditions.visibilityOf(elementEditProfile));
+        elementEditProfile.click();
+        // Assert
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + "adultMovie.png");
+
+        WebElement me2 = Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/section/ul/div[3]/div/h3"));
+        String textProfileChange = me2.getText();
+        Assert.assertEquals("Profile",textProfileChange);
+
+    }
+
+    @Test public void test7verificarAdulto(){
+        // Clicar no Perfil
+        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[3]/div/div")).click();
+
+        WebElement me = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[3]/div"));
+        String textoNoElemento = me.getText();
+        Assert.assertEquals("Destaques Star",textoNoElemento);
+
+        // Pesquisar Filme Adulto
+
+        Navegador.findElement(By.cssSelector("#nav-list > span:nth-child(3) > a")).click();
+        WebElement movieTitle = Navegador.findElement(By.cssSelector("#explore-ui-main-content-container > div._1r8f3tq5.xgfbc13ua.xgfbc13ia.xgfbc15o > input"));
+        movieTitle.sendKeys("Roger Rabbit");
+
+        movieTitle = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[2]/div/div/section/div/div/a/div[2]/div[1]"));
+        String textMovie = movieTitle.getText();
+        Assert.assertEquals("Uma Cilada para Roger Rabbit",textMovie);
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + ".png");
 
         // Assert
     }
 
-    @Ignore public void verificarAdulto(){
+    @Test public void test8excluirPerfil(){
         //Clicar em Editar Perfil
-
-        // Clicar no Perfil
-
-        //Mudar nome para Profile
-
-        //Mudar para modo Adulto
-
-        //Colocar Senha
-
-        //Clicar em Salvar
-
-        //Clicar em Pronto
-
+        Navegador.findElement(By.cssSelector("nav > button")).click();
+        // Clicar no 3 Perfil
+        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/section/ul/div[3]")).click();
+        //Clicar em Excluir Perfil
+        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/form/div[2]/div[2]/button")).click();
+        //Confirmar a exclusao no PopUp
+        Navegador.findElement(By.xpath("//*[@id=\"app_index\"]/div[2]/div/div/div/button[2]")).click();
         // Assert
-    }
-
-    @Ignore public void excluirPerfil(){
-        //Clicar em Editar Perfil
-
-        // Clicar no Perfil
-
-        //Mudar nome para Profile
-
-        //Mudar para modo Adulto
-
-        //Colocar Senha
-
-        //Clicar em Salvar
-
-        //Clicar em Pronto
-
-        // Assert
+        WebDriverWait wait = new WebDriverWait(Navegador, 10);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\\\"remove-main-padding_index\\\"]/div/section/ul/div[3]\"")));
     }
 
     @After
