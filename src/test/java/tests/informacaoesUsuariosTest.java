@@ -1,5 +1,7 @@
 package tests;
 
+
+import java.util.concurrent.TimeUnit;
 import Suporte.Generator;
 import Suporte.Screenshoot;
 import org.junit.*;
@@ -8,8 +10,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Duration;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -77,7 +81,8 @@ public class informacaoesUsuariosTest {
 
     }
 
-    @Test public void CriarUsuario(){
+    @Ignore
+    public void CriarUsuario(){
         Navegador.findElement(By.cssSelector("ul > label")).click();
 
         Navegador.findElement(By.id("password")).sendKeys("Dougl@s020498");
@@ -104,8 +109,106 @@ public class informacaoesUsuariosTest {
         Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + ".png");
         // Assert
     }
+
+
+    @Test public void verificarKidsMode(){
+
+
+
+        //Entrar no Perfil
+        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[3]/div/div")).click();
+
+        // Pesquisar Adulto
+        Navegador.findElement(By.cssSelector("#nav-list > span:nth-child(3) > a")).click();
+
+        //Pesquisar Adulto
+        Navegador.findElement(By.cssSelector("#explore-ui-main-content-container > div._1r8f3tq5.xgfbc13ua.xgfbc13ia.xgfbc15o > input")).sendKeys("Roger Rabbit");
+
+        //Pesquisa Adulto
+        WebElement me = Navegador.findElement(By.cssSelector("#explore-ui-main-content-container > div._1r8f3tqg.xgfbc1c.xgfbc11xu"));
+        WebDriverWait wait = new WebDriverWait(Navegador,10);
+        wait.until(ExpectedConditions.visibilityOf(me));
+
+
+        String textoNoElemento = me.getText();
+        Assert.assertEquals("Nenhum resultado encontrado para \"Roger Rabbit\"",textoNoElemento);
+
+
+
+
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + "adultMovie.png");
+
+        //Pesquisa Kids
+        Navegador.findElement(By.cssSelector("#explore-ui-main-content-container > div._1r8f3tq5.xgfbc13ua.xgfbc13ia.xgfbc15o > input")).clear();
+
+        Navegador.findElement(By.cssSelector("#explore-ui-main-content-container > div._1r8f3tq5.xgfbc13ua.xgfbc13ia.xgfbc15o > input")).sendKeys("A casa do Myckey Mouse");
+        WebElement me2 = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[2]/div/div/section/div/div/a/div[2]/div[1]/span"));
+        String textoNoElemento2 = me2.getText();
+        Assert.assertEquals("A Casa do Mickey Mouse",textoNoElemento2);
+
+        wait.until(ExpectedConditions.visibilityOf(me2));
+
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + "kidsMovie.png");
+
+    }
+
+
+    @Ignore public void editarUsuario(){
+        //Clicar em Editar Perfil
+
+        // Clicar no Perfil
+
+        //Mudar nome para Profile
+
+        //Mudar para modo Adulto
+
+        //Colocar Senha
+
+        //Clicar em Salvar
+
+        //Clicar em Pronto
+
+        // Assert
+    }
+
+    @Ignore public void verificarAdulto(){
+        //Clicar em Editar Perfil
+
+        // Clicar no Perfil
+
+        //Mudar nome para Profile
+
+        //Mudar para modo Adulto
+
+        //Colocar Senha
+
+        //Clicar em Salvar
+
+        //Clicar em Pronto
+
+        // Assert
+    }
+
+    @Ignore public void excluirPerfil(){
+        //Clicar em Editar Perfil
+
+        // Clicar no Perfil
+
+        //Mudar nome para Profile
+
+        //Mudar para modo Adulto
+
+        //Colocar Senha
+
+        //Clicar em Salvar
+
+        //Clicar em Pronto
+
+        // Assert
+    }
+
     @After
     public void TearDown() throws Exception {
-        Navegador.quit();
+       // Navegador.quit();
     }
 }
