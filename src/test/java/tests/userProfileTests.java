@@ -18,6 +18,7 @@ import org.openqa.selenium.Keys;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class userProfileTests {
     private WebDriver Navegador;
+    CharSequence PASSWORD = null;
 
     @Rule
     public TestName test = new TestName();
@@ -38,7 +39,7 @@ public class userProfileTests {
         Navegador.findElement(By.id("email")).sendKeys("douglasfelipecandido1@gmail.com");
         Navegador.findElement(By.cssSelector("form > button")).click();
         //Password is a local variable
-        Navegador.findElement(By.id("password")).sendKeys("Dougl@s020498");
+        Navegador.findElement(By.id("password")).sendKeys(PASSWORD);
         Navegador.findElement(By.cssSelector("form > button")).click();
 
     }
@@ -90,7 +91,8 @@ public class userProfileTests {
         //Click in Create User - Junior Mode
         Navegador.findElement(By.cssSelector("ul > label")).click();
         //Password is a local variable
-        Navegador.findElement(By.id("password")).sendKeys("Dougl@s020498");
+
+        Navegador.findElement(By.id("password")).sendKeys(PASSWORD);
         //Create User - Test Child
         Navegador.findElement(By.id("password-continue-login")).click();
         Navegador.findElement(By.xpath("//*[@id=\"select-avatar\"]/div[2]/div/div/div/div/div/div[1]")).click();
@@ -162,7 +164,7 @@ public class userProfileTests {
         //Change to adult Mode
         Navegador.findElement(By.cssSelector("div:nth-child(3) > div:nth-child(2) > label")).click();
         //Password is a local variable
-        Navegador.findElement(By.id("password")).sendKeys("Dougl@s020498");
+        Navegador.findElement(By.id("password")).sendKeys(PASSWORD);
         Navegador.findElement(By.id("password-continue-login")).click();
 
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("#app_index > div.sc-dHmInP.fcdCun > div > div")));
@@ -185,7 +187,7 @@ public class userProfileTests {
 
     }
 
-    @Test public void test7verificarAdulto(){
+    @Test public void test7verifyAdult(){
         // Click in Profile
         Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[3]/div/div")).click();
         WebElement me = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[3]/div"));
@@ -208,7 +210,7 @@ public class userProfileTests {
 
     }
 
-    @Test public void test8excluirPerfil(){
+    @Test public void test8DeletProfile(){
         //Click in edit Profile
         Navegador.findElement(By.cssSelector("nav > button")).click();
         Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/section/ul/div[3]")).click();
