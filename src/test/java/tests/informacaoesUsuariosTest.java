@@ -178,9 +178,8 @@ public class informacaoesUsuariosTest {
 
         //Clicar em Pronto
 
-        elementEditProfile = Navegador.findElement(By.cssSelector("#remove-main-padding_index > div > nav > button"));
-        wait.until(ExpectedConditions.visibilityOf(elementEditProfile));
-        elementEditProfile.click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("#app_index > div.sc-dHmInP.fcdCun > div > div")));
+        Navegador.findElement(By.cssSelector("#remove-main-padding_index > div > nav > button")).click();
         // Assert
         Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + "adultMovie.png");
 
