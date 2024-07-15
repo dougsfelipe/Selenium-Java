@@ -58,6 +58,68 @@ Project dedicated to study Java/Selenium Web automation, using cucumber, Junit a
 **Prerequisites**: User is Logged with an account
 **Browser:** Chrome 
 **Expected/Intended Results:** Check if the new Profile is listed in Profile lists.
+
+---
+
+**Test Case ID:** 5
+**Test Scenario:** Verify if the Child Profile (Junior Mode) is correct
+**Test Steps:**
+1. Select the Child Profile
+2. Click in Search Button
+3. Enter a 14+ Movie in seach bar. eg: "Rogger Rabbit"
+4. Wait until the message that movie is not found 
+5. Enter a PG Free Movie in seach bar. eg: "Mickey Mouse"
+6. Wait until the Movie appears
+
+**Prerequisites**: User is Logged with an account
+**Browser:** Chrome 
+**Expected/Intended Results:** The Tittle card for "A Casa do Mickey Mouse" must appears.
+
+---
+
+**Test Case ID:** 6
+**Test Scenario:** Edit user Profile
+**Test Steps:**
+1. Click in Edit
+2. Select the Child Profile
+3. Change the name to "Profile"
+4. Change the toogle (in Junior Mode) to off 
+5. Enter password and click in Continue
+6. Click in Done
+
+**Prerequisites**: User is Logged with an account
+**Browser:** Chrome 
+**Expected/Intended Results:** The Profile name is changed correct and must be with junior mode off.
+
+---
+
+**Test Case ID:** 7
+**Test Scenario:** Verify if the Profile is in Adult Mode
+**Test Steps:**
+1. Click in the last Profile
+2. Click in Search Button
+3. Enter a 14+ Movie in seach bar. eg: "Rogger Rabbit"
+4.  Wait until the Movie appears
+
+**Prerequisites**: User is Logged with an account
+**Browser:** Chrome 
+**Expected/Intended Results:** The Tittle card for "Uma Cilada para Roger Rabbit" must appears.
+
+---
+
+**Test Case ID:** 8
+**Test Scenario:** Delete Profile
+**Test Steps:**
+1. Click in Edit Button
+2. Click in the last Profile
+3. Click in delete user at the bottom of the screen
+4.  Wait until the Profile Page appears
+
+**Prerequisites**: User is Logged with an account
+**Browser:** Chrome 
+**Expected/Intended Results:** The Profile is deleted successful.
+
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
