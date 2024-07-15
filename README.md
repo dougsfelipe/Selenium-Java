@@ -15,7 +15,9 @@ Project dedicated to study Java/Selenium Web automation, using cucumber, Junit a
 **Prerequisites**: A registered Email and a password.
 **Browser:** Chrome 
 **Expected/Intended Results:** Check if the page changed for Profile pages
+
 ---
+
 **Test Case ID:** 2
 **Test Scenario:** Enter HomeScreen Disney+ Page
 **Test Steps:**
