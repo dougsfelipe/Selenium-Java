@@ -19,6 +19,7 @@ import org.openqa.selenium.Keys;
 public class userProfileTests {
     private WebDriver Navegador;
     CharSequence PASSWORD = null;
+    CharSequence EMAIL = null;
 
     @Rule
     public TestName test = new TestName();
@@ -36,7 +37,7 @@ public class userProfileTests {
 
         //Login in Disne+
         Navegador.findElement(By.linkText("ENTRAR")).click();
-        Navegador.findElement(By.id("email")).sendKeys("douglasfelipecandido1@gmail.com");
+        Navegador.findElement(By.id("email")).sendKeys(EMAIL);
         Navegador.findElement(By.cssSelector("form > button")).click();
         //Password is a local variable
         Navegador.findElement(By.id("password")).sendKeys(PASSWORD);
