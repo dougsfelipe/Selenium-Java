@@ -5,7 +5,7 @@ Project dedicated to study Java/Selenium Web automation, using cucumber, Junit a
 ## Test Cases
 
 **Test Case ID:** 1
-**Test Scenario:** Login in Disney+ Page
+**Test Scenario:** Login in Disney+ Page.
 **Test Steps:**
 1. Click Login Button
 2. Enter your email details in the login field and click in Continue
