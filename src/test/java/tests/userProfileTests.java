@@ -2,6 +2,10 @@ package tests;
 
 
 import java.util.concurrent.TimeUnit;
+
+import Pages.HomePage;
+import Pages.ProfilePage;
+import Pages.LoginPage;
 import Suporte.Generator;
 import Suporte.Screenshoot;
 import org.junit.*;
@@ -18,6 +22,10 @@ import org.openqa.selenium.Keys;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class userProfileTests {
     private WebDriver Navegador;
+    private LoginPage loginPage;
+    private HomePage homePage;
+    private ProfilePage profilePage;
+
     CharSequence PASSWORD = null;
     CharSequence EMAIL = null;
 
@@ -32,84 +40,60 @@ public class userProfileTests {
         Navegador = new ChromeDriver();
         Navegador.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        //Enter test page
-        Navegador.get("https://www.disneyplus.com/pt-br");
 
-        //Login in Disne+
-        Navegador.findElement(By.linkText("ENTRAR")).click();
-        Navegador.findElement(By.id("email")).sendKeys(EMAIL);
-        Navegador.findElement(By.cssSelector("form > button")).click();
-        //Password is a local variable
-        Navegador.findElement(By.id("password")).sendKeys(PASSWORD);
-        Navegador.findElement(By.cssSelector("form > button")).click();
+        loginPage = new LoginPage(Navegador);
+        homePage = new HomePage(Navegador);
+        profilePage = new ProfilePage(Navegador);
+
+        //Enter test page
+
+        loginPage.open();
+        loginPage.clickLoginLink();
+        loginPage.enterEmail(EMAIL);
+        loginPage.clickLoginButton();
+        loginPage.enterPassword(PASSWORD);
+        loginPage.clickLoginButton();
 
     }
 
     @Test
     public void test1Logincheck() {
-
-        WebElement me = Navegador.findElement(By.cssSelector("#remove-main-padding_index > div > div > section > h2"));
-        String textoNoElemento = me.getText();
-        //Check if profile page is redered
-        Assert.assertEquals("Quem vai assistir?",textoNoElemento);
-
-        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + ".png");
-
+        String textoNoElemento = homePage.getProfileHeaderText();
+        Assert.assertEquals("Quem vai assistir?", textoNoElemento);
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport" + Generator.dataHoraArquivo() + test.getMethodName() + ".png");
     }
 
     @Test
     public void test2EnterHome() {
-        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[1]/div/div")).click();
-
-        WebElement me = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[3]/div"));
-        String textoNoElemento = me.getText();
-        //Check if enter in Disney/Star+ selection movie page
-        Assert.assertEquals("Destaques Star",textoNoElemento);
-
-        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + ".png");
+        homePage.clickFirstProfile();
+        String textoNoElemento = homePage.getStarHighlightsText();
+        Assert.assertEquals("Destaques Star", textoNoElemento);
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport" + Generator.dataHoraArquivo() + test.getMethodName() + ".png");
     }
 
     @Test
     public void test3SearchMovie() {
 
-        //Click in search bar and serch a movie (Rogger Rabbit)
-        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[1]/div/div")).click();
-        Navegador.findElement(By.cssSelector("#nav-list > span:nth-child(3) > a")).click();
-        Navegador.findElement(By.cssSelector("#explore-ui-main-content-container > div._1r8f3tq5.xgfbc13ua.xgfbc13ia.xgfbc15o > input")).sendKeys("Roger Rabbit");
-
-        // Check if the movie is found
-        WebElement movieTitle = Navegador.findElement(By.xpath("//*[@id=\"explore-ui-main-content-container\"]/div[2]/div/div/section/div/div/a/div[2]/div[1]"));
-        String textMovie = movieTitle.getText();
-        Assert.assertEquals("Uma Cilada para Roger Rabbit",textMovie);
-
-        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + ".png");
-
+        homePage.clickFirstProfile();
+        homePage.clickSearchButton();
+        homePage.enterSearchQuery("Roger Rabbit");
+        String textMovie = homePage.getFirstMovieTitle();
+        Assert.assertEquals("Uma Cilada para Roger Rabbit", textMovie);
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport" + Generator.dataHoraArquivo() + test.getMethodName() + ".png");
     }
 
     @Test
     public void test4CreateUser(){
-
-        //Click in Create User - Junior Mode
-        Navegador.findElement(By.cssSelector("ul > label")).click();
-        //Password is a local variable
-
-        Navegador.findElement(By.id("password")).sendKeys(PASSWORD);
-        //Create User - Test Child
-        Navegador.findElement(By.id("password-continue-login")).click();
-        Navegador.findElement(By.xpath("//*[@id=\"select-avatar\"]/div[2]/div/div/div/div/div/div[1]")).click();
-        Navegador.findElement(By.id("addProfile")).sendKeys("Test Child");
-        Navegador.findElement(By.cssSelector(" label > p")).click();
-        Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/section/div/section/form/div/div[2]/button")).click();
-
-
-        WebElement me = Navegador.findElement(By.xpath("//*[@id=\"remove-main-padding_index\"]/div/div/section/ul/div[3]/div/h3"));
-        String textoNoElemento = me.getText();
-        //Check if profile is in Profiles list
-        Assert.assertEquals("Test Child",textoNoElemento);
-        WebDriverWait wait = new WebDriverWait(Navegador, 10);
-        wait.until(ExpectedConditions.visibilityOf(me));
-
-        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport"+ Generator.dataHoraArquivo() + test.getMethodName() + ".png");
+        profilePage.clickCreateUser();
+        profilePage.enterPassword(PASSWORD);
+        profilePage.clickContinueLogin();
+        profilePage.selectAvatar();
+        profilePage.enterProfileName("Test Child");
+        profilePage.clickSaveButton();
+        String textoNoElemento = profilePage.getProfileName();
+        Assert.assertEquals("Test Child", textoNoElemento);
+        Screenshoot.tirar(Navegador, "C:\\Users\\dougl\\Desktop\\Cursos\\WebAutomationJava\\src\\testReport" + Generator.dataHoraArquivo() + test.getMethodName() + ".png");
+    
     }
 
 
